@@ -15,6 +15,5 @@ try:
 except KeyboardInterrupt:
     cell.shm.unlink()
     seccell.shm.unlink()
-    print('[*] Stopping firework...')
 
 

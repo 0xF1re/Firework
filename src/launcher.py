@@ -3,12 +3,13 @@ from multiprocessing import Process
 from time import sleep
 from os import getuid
 
-banner = '''
- _____ _                             _  
+banner = r'''
+ _____ _                             _
 |  ___(_)_ __ _____      _____  _ __| | __
 | |_  | | '__/ _ \ \ /\ / / _ \| '__| |/ /
-|  _| | | | |  __/\ V  V / (_) | |  |   < 
-|_|   |_|_|  \___| \_/\_/ \___/|_|  |_|\_\ 
+|  _| | | | |  __/\ V  V / (_) | |  |   <
+|_|   |_|_|  \___| \_/\_/ \___/|_|  |_|\_\
+
 '''
 
 def pluginmanager():
@@ -17,13 +18,11 @@ def pluginmanager():
     except KeyboardInterrupt:
         print('[*] Memory cells unlinked')
 
+
 def firework():
-    sleep(.1)
-    firework = run(['sudo', './Firework'], capture_output=True, text=True).stderr
-    if "thread 'main' panicked" in firework:
-        return '[!] PluginManager error, exiting...'
-    else:
-        return f'[!] {firework}'
+    run(['sudo', 'python3', 'main.py'])
+    return '[*] Stopping firework...'
+
 
 def firemodule(mode):
     if mode == 'insmod':
@@ -34,7 +33,7 @@ def firemodule(mode):
             return '[!] Kernel module has already been inserted'
         else:
             return f'[!] {insert}'
-    
+
     elif mode == 'rmmod':
         insert = run(['sudo', 'rmmod', 'firemodule'], capture_output=True, text=True).stderr
         if insert == '':
@@ -42,12 +41,13 @@ def firemodule(mode):
         else:
             return f'[!] {insert}'
 
+
 def main():
     print(banner)
     if getuid() == 0:
         print('[!] Running from root can cause security issues')
-        print('[!] Run Firework not as root\n')     
-    
+        print('[!] Run Firework not as root\n')
+
     MODULE = Process(target=pluginmanager)
     print('[*] Starting firework')
     try:
@@ -58,6 +58,7 @@ def main():
         print(firemodule('rmmod'))
     except KeyboardInterrupt:
         print(firemodule('rmmod'))
+
 
 if __name__ == '__main__':
     main()
