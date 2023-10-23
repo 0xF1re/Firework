@@ -10,5 +10,6 @@ install:
 	cp -r src/pluginManager $(path)
 	cp src/launcher.py $(path)
 	cp src/main.py $(path)
-clean:
+	cp requerements.txt $(path)
+	clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD)/kernel_module clean

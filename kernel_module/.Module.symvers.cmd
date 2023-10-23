@@ -1,0 +1,1 @@
+savedcmd_/home/mirax/Firework/kernel_module/Module.symvers :=  scripts/mod/modpost  -a    -N  -o /home/mirax/Firework/kernel_module/Module.symvers -n -T /home/mirax/Firework/kernel_module/modules.order -i Module.symvers -e 
