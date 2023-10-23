@@ -11,5 +11,5 @@ install:
 	cp src/launcher.py $(path)
 	cp src/main.py $(path)
 	cp requerements.txt $(path)
-	clean:
+clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD)/kernel_module clean
