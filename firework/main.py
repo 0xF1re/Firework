@@ -10,11 +10,12 @@ def print_and_accept(pkt):
 
 nfqueue = NetfilterQueue()
 nfqueue.bind(0, print_and_accept)
+
+print('[*] Queue binded')
+print('[*] Firework started')
 try:
-    print('[*] Queue binded')
-    print('[*] Firework started')
     nfqueue.run()
 except KeyboardInterrupt:
-    print('[*] Queue unbinded')
+    print('[*] Stopping firework...')
 
 nfqueue.unbind()

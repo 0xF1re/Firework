@@ -1,6 +1,4 @@
 from subprocess import run
-from multiprocessing import Process
-from time import sleep
 from os import getuid
 
 banner = r'''
@@ -12,16 +10,10 @@ banner = r'''
 
 '''
 
-def pluginmanager():
-    try:
-        run(['python3', '-m', 'pluginManager.pluginManager'])
-    except KeyboardInterrupt:
-        print('[*] Memory cells unlinked')
-
 
 def firework():
     run(['sudo', 'python3', 'main.py'])
-    return '[*] Stopping firework...'
+    return '[*] Queue unbinded'
 
 
 def firemodule(mode):
@@ -47,14 +39,9 @@ def main():
     if getuid() == 0:
         print('[!] Running from root can cause security issues')
         print('[!] Run Firework not as root\n')
-
-    MODULE = Process(target=pluginmanager)
-    print('[*] Starting firework')
     try:
         print(firemodule('insmod'))
-        MODULE.start()
         print(firework())
-        MODULE.join()
         print(firemodule('rmmod'))
     except KeyboardInterrupt:
         print(firemodule('rmmod'))
